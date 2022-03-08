@@ -38,8 +38,45 @@ Los paquetes, una vez construidos pueden publicarse en repositorios de paquetes.
 
 Si Maven no encuentra un paquete en el repositorio local, busca en repositorios remotos. Estos repositorios pueden configurarse en un fichero llamado `settings.xml` ubicado en el directorio `.m2`. Si no confiuramos ningún repositorio remoto, Maven usará el repositorio [Maven Central](https://search.maven.org).
 
-
 ### Project Object Model (pom)
+
+El __project object model__ es el elemento fundamental para la especificación y configuración de la construcción de un proyecto. Se trata de un fichero llamado normalmente `pom.xml` donde se especifica (en formato XML) las dependencias del proyecto, sus coordenadas y todas las instrucciones necesarias para la construcción del software. Cuando un proyecto se construye con Maven y contiene este fichero `pom.xml` decimos que es un _proyecto Maven_.
+
+Vamos a ver un ejemplo de fichero `pom.xml` sencillo a continuación:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>es.uma.informatica.sii</groupId>
+    <artifactId>Persistencia</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>2.5.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>10.13.1.1</version>
+        </dependency>
+    </dependencies>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+</project>
+```
 
 ### Ciclo de vida de la construcción: objetivos y fases
 
