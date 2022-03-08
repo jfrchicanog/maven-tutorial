@@ -124,7 +124,7 @@ mvn verify
 ```
 se ejecutarán todas las fases hasta `verify` (que comprueba que las pruebas de integración han pasado).
 
-La secuencia anterior de fases forma el denominado _ciclo de vida por defecto_ de Maven. Pero Maven define otros dos _ciclos de vida_, con una secuencia de fases diferente. Por un lado, tenemos el ciclo de vida _clean_, que se centra en la eliminación de los artfectos generados en el directorio de trabajo del proeycto (no en los repositorios), con fases:
+La secuencia anterior de fases forma el denominado _ciclo de vida por defecto_ de Maven. Pero Maven define otros dos _ciclos de vida_, con una secuencia de fases diferente. Por un lado, tenemos el ciclo de vida _clean_, que se centra en la eliminación de los artfectos generados en el directorio de trabajo del proyecto (no en los repositorios), con fases:
 
 1. pre-clean
 2. clean
