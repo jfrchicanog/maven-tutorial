@@ -80,9 +80,64 @@ Vamos a ver un ejemplo de fichero `pom.xml` sencillo a continuación:
 </project>
 ```
 
-### Ciclo de vida de la construcción: objetivos y fases
+Se peude ver cómo se especifican las dependencias del proyecto dentro del elemento `<dependencies>` del fichero XML. También se especifican aspectos como la versión Java usada para el código fuente y el código objeto, la codificación de caracteres que se debe asumir en el proyecto y el equipo de empaquetado que debe usarse (archivo JAR en este caso).
 
-## Ejecución de la contrucción
+Para ver todo lo que puede ir dentro de un fichero `pom.xml` se recomienda visitar [este enlace](https://maven.apache.org/pom.html).
+
+### Ciclo de vida de la construcción: fases y objetivos
+
+Maven organiza la construcción de los paquetes en fases, cada una de las cuales se centra en un aspecto de la construcción del software. Las fases definidas para la construcción en Maven se pueden encontrar [aquí](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#default-lifecycle) y son las siguientes:
+
+1. validate
+2. initialize
+3. generate-sources
+4. process-sources
+5. generate-resources
+6. process-resources
+7. compile
+8. process-classes
+9. generate-test-sources
+10. process-test-sources
+11. generate-test-resources
+12. process-tes-resources
+13. test-compile
+14. process-test-classes
+15. test
+16. prepare-package
+17. package
+18. pre-integration-test
+19. integration-test
+20. post-integration-test
+21. verify
+22. install
+23. deploy
+
+No es necesario ejecutar todas estas fases cuando realizamos la construcción del software. Normalmente indicamos mediante línea de comando la fase a la que queremos llegar y Maven ejecuta todas las fases hasta la indicada (incluida). Por ejemplo, si escribimos:
+
+```
+mvn package
+```
+se ejecutarán todas las fases anteriores hasta llegar a la fase `package`. El resultado será un paquete con el software. Si escribimos:
+
+```
+mvn verify
+```
+se ejecutarán todas las fases hasta `verify` (que comprueba que las pruebas de integración han pasado).
+
+La secuencia anterior de fases forma el denominado _ciclo de vida por defecto_ de Maven. Pero Maven define otros dos _ciclos de vida_, con una secuencia de fases diferente. Por un lado, tenemos el ciclo de vida _clean_, que se centra en la eliminación de los artfectos generados en el directorio de trabajo del proeycto (no en los repositorios), con fases:
+
+1. pre-clean
+2. clean
+3. post-clean
+
+Por otro lado, existe un ciclo de vida _site_ para la generación de la documentación asociada al proyecto, con ciclos de vida:
+
+1. pre-site
+2. site
+3. post-site
+4. site-deploy
+
+Se puede encontrar más información sobre los ciclos de vida en Maven [aquí](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html).
 
 ## Propiedades en Maven
 
