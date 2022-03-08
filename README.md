@@ -25,8 +25,18 @@ En esta sección explicaremos algunos conceptos básicos de Maven, necesarios pa
 
 Una de las grandes ventajas de Maven es que se pueden especificar de forma declarativa las dependencias entre distintas bibliotecas (paquetes). Antes de la existencia de este tipo de herramientas, las bibliotecas debían descargarse manualmente (normalmente un fichero JAR) y colocarlas en una carpeta asociada al proyecto para incluirlas en el _classpath_ durante la construcción y la ejecución. Si la biblioteca descargadda tenía otras dependencias, estas también debían descargarse, y así sucesivamente hasta resolver todas las dependencias. Con Maven basta indicar de qué biblioteca depende nuestro proyecto y la herramienta se encargará de buscar la dependencia (descargarla si es necesario) y todas sus dependencias y ubicarla en el _classpath_ para la construcción del software.
 
+Para poder especificar las dependencias de forma declarativa, es necesario que cada paquete en Maven esté identificado. Para eso se usan las _coordenadas Maven_:
+* __groupId__: es un identificador que normalmente identifica la organización o el grupo de desarrollo.
+* __artifactId__: identifica el paquete dentro del grupo de desarrollo (su nombre).
+* __version__: es la versión del artefacto. Se recomienda seguir el estándar de [Versionado semático 1.0.0](https://semver.org/spec/v1.0.0.html).
 
+La terna anterior identifica de forma unívoca un paquete concreto (un fichero JAR) que puede contener una biblioteca, una aplicación, recursos, etc. De esta forma es posible indicar claramente en un proyecto qué dependencias tenemos. Es habitual usar la notación `groupId:artifcatId:version` para identificar de forma concisa un paquete Maven.
 
+### Repositorios
+
+Los paquetes, una vez construidos pueden publicarse en repositorios de paquetes. En todo sistema que use Maven existe un _repositorio local_, asociado al usuario que ejecuta Maven, y que normalmente se encuentra en el directorio `.m2` dentro del directorio de trabajo del usuario. Este repositorio local actúa como una caché para almacenar los paquetes descargados por Maven de otros repositorios remotos. También se puede utilizar para instalar paquetes que estamos construyendo por si los necesitan otros proyectos (usando el comando `mvn install`). 
+
+Si Maven no encuentra un paquete en el repositorio local, busca en repositorios remotos. Estos repositorios pueden configurarse en un fichero llamado `settings.xml` ubicado en el directorio `.m2`. Si no confiuramos ningún repositorio remoto, Maven usará el repositorio [Maven Central](https://search.maven.org).
 
 
 ### Project Object Model (pom)
