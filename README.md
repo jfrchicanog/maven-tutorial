@@ -32,6 +32,13 @@ Para poder especificar las dependencias de forma declarativa, es necesario que c
 
 La terna anterior identifica de forma unívoca un paquete concreto (un fichero JAR) que puede contener una biblioteca, una aplicación, recursos, etc. De esta forma es posible indicar claramente en un proyecto qué dependencias tenemos. Es habitual usar la notación `groupId:artifcatId:version` para identificar de forma concisa un paquete Maven.
 
+A la hora de especificar las dependencias de un proyecto es posible indicar su _ámbito_ (_scope_). Este ámbito indican cuándo será necesario añadir el código al _classpath_. El ámbito puede tomar los siguientes valores:
+* **compile** (valor por defecto). Indica que la dependencia debe estar disponible en cualquier classpath (compilación, pruebas y ejecución) y que se debe incluir también en el classpath de los proyectos dependientes.
+* **runtime**. Indica que la dependencia debe estar disponible en tiempo de ejecución y pruebas pero no es necesaria para la compilación.  
+* **test**. Indica que la dependencia solo es necesaria durante las pruebas, por lo que se añadirá a la fase de compilación de casos de prueba y su ejecución. 
+* **provided**. Indica que la dependencia se espera que esté presente en el entorno de ejecución (típicamente un contenedor de un servidor de aplicaciones). Se encontrará en el classpath de compilación y pruebas.
+* **system**. Indica que la dependencia se encuentra en el sistema de ficheros y Maven no debe buscarlo en un repositorio (debe proporcionarse el JAR en este caso usando el elemento `systemPath`).
+
 ### Repositorios
 
 Los paquetes, una vez construidos pueden publicarse en repositorios de paquetes. En todo sistema que use Maven existe un _repositorio local_, asociado al usuario que ejecuta Maven, y que normalmente se encuentra en el directorio `.m2` dentro del directorio de trabajo del usuario. Este repositorio local actúa como una caché para almacenar los paquetes descargados por Maven de otros repositorios remotos. También se puede utilizar para instalar paquetes que estamos construyendo por si los necesitan otros proyectos (usando el comando `mvn install`). 
@@ -212,7 +219,7 @@ Para más información sobre los plugins de Maven se puede visitar [esta página
 
 Maven asume una determinada estructura de directorios para el proyecto. En particular, el fichero `pom.xml` asume que se encuentra en el directorio raíz del proyecto, junto con la licencia y fichero `readme`. Todo el código fuente debe encontrarse bajo el subdirectorio `src` y todo el código objeto generado así como fichero empaquetados lo almacenará bajo el directorio `target` (este directorio es eliminado al hacer `mvn clean`).
 
-Debajo de `src` encontraremos el subdirectorio `main` para el código y recursos principales de la aplicación y el directorio `test` para el código y recursos de pruebas. Dentro de cada uno de estos directorios encontramos, a su vez, los subdirectorios `java` y `resources` que contienen el código fuente Java y los recursos (ficheros de texto, ficheros de propiedades, imágenes) que use el código fuente.
+Debajo de `src` encontraremos el subdirectorio `main` para el código y recursos principales de la aplicación y el directorio `test` para el código y recursos de pruebas. Dentro de cada uno de estos directorios encontramos, a su vez, los subdirectorios `java` y `resources` que contienen el código fuente Java y los recursos (ficheros de texto, ficheros de propiedades, imágenes) que use el código fuente. Cuando estamos desarrollando una aplicación Web, el subdirectorio `webapp` dentro de `src/main` se usa para contener las páginas HTML, JSP, y facelets de la aplciación, así como recursos CSS y JS de la misma.
 
 Para más información sobre la estructura de un proyecto Maven se puede visitar [este enlace](https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html).
 
@@ -259,6 +266,79 @@ El comando anterior creará un paquete con el proyecto pero se saltará la fase 
 
 ## Proyectos con múltiples módulos
 
+Es posible estructurar un proyecto de Maven como una jerarquía de módulos. Cada módulo es presenta en un subdirectorio diferente y tiene su propio fichero `pom.xml` y cada módulo tiene sus propias coordenadas. Podemos pensar en un proyecto multi-módulo como una colección de proyectos relacionados que pueden procesarse a la vez. El siguiente fichero define un proyecto Maven con cuatro módulos:
+
+```
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>es.uma.informatica.sii</groupId>
+  <artifactId>AgendaWeb</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>AgendaWeb</name>
+  <description>Código base para la práctica 6 de Sistemas de Información para Internet</description>
+  <scm>
+  	<url>https://github.com/jfrchicanog/AgendaWeb.git</url>
+  	<developerConnection>Francisco Chicano</developerConnection>
+  </scm>
+  <modules>
+  	<module>AgendaWeb-ejb</module>
+  	<module>AgendaWeb-war</module>
+  	<module>AgendaWeb-jpa</module>
+  	<module>AgendaWeb-ear</module>
+  </modules>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>javax</groupId>
+  			<artifactId>javaee-api</artifactId>
+  			<version>8.0</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
+</project>
+```
+
+En el `pom.xml` del proyecto multi-módulo es posible definir propiedades y configuraciones que afecten a todos los módulos. Si miramos el fichero `pom.xml` de uno de los módulos (`AgendaWeb-jpa`) encontramos lo siguiente:
+```
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>es.uma.informatica.sii</groupId>
+    <artifactId>AgendaWeb</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>AgendaWeb-jpa</artifactId>
+  <name>JPA</name>
+  <description>Entidades JPA de la aplicación</description>
+  <scm>
+  	<url>https://github.com/jfrchicanog/AgendaWeb.git</url>
+  </scm>
+  <properties>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+  	<maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  <dependencies>
+  	<dependency>
+  		<groupId>javax</groupId>
+  		<artifactId>javaee-api</artifactId>
+  		<scope>provided</scope>
+  	</dependency>
+  </dependencies>
+</project>
+```
+
+Observamos que con el elemento `parent` es posible definir el proyecto padre de este módulo. También observamos que no es necesario especificar la versión de la dependencia a `javaee-api` ya que el proyecto padre la ha definido dentro del elemento `dependencyManagement`. 
+
+Es posible que un módulo del proyecto dependa de otro (necesita que el otro se construya antes). Maven detecta estas dependencias y las resuelve, permitiendo que el orden en que se presentan los módulos en el proyecto padre sea irrelevante. Maven siempre construirá los módulos en un orden que resuelva todas las dependencias.
+
 ## Arquetipos
 
+Los arquetipos son plantillas de proyectos Maven que permiten partir de un proyecto no vacío.
+
+
+Hace falta?
+
 ## Perfiles en Maven
+
+Esto no va a hacer falta
