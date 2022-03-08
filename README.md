@@ -52,7 +52,7 @@ Vamos a ver un ejemplo de fichero `pom.xml` sencillo a continuación:
     <modelVersion>4.0.0</modelVersion>
     <groupId>es.uma.informatica.sii</groupId>
     <artifactId>Persistencia</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -64,7 +64,6 @@ Vamos a ver un ejemplo de fichero `pom.xml` sencillo a continuación:
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
             <version>2.5.2</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.derby</groupId>
@@ -138,6 +137,78 @@ Por otro lado, existe un ciclo de vida _site_ para la generación de la document
 4. site-deploy
 
 Se puede encontrar más información sobre los ciclos de vida en Maven [aquí](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html).
+
+Asociadas a cada una de las fases del ciclo de vida hay una serie de acciones que se ejecutan que se denominan _objetivos_ (_goals_) en la terminología Maven. Estos objetivos están implmentados en _plugins_ de Maven, que son, a su vez, paquetes de Maven que permiten extender la funcionalidad de Maven. Por ejemplo, la compilación del código Java se lleva a cabo en la fase `compile` y la realiza el [plugin _compiler_](https://maven.apache.org/plugins/maven-compiler-plugin/) de Apache Maven. En particular, en dicha fase se ejecuta el objetivo denominado `compile`. Otro objetivo definido por el mismo plugin es `test-compile` que se encarga de compilar el código fuente de las pruebas de código. 
+
+El nombre completo de un objetivo viene determinado por el plugin que lo implementa y el nombre del objetivo. Por ejemplo, `compiler:compile` hace referencia al objetivo que compila el código fuente del plugin `compiler`. Es posible ejecutar un objetivo específico de un plugin escribiendo el nombre completo del objetivo tras el comando `mvn`. Por ejemplo, si ecribimos:
+
+```
+mvn compiler:compile
+```
+se ejecutará solo la compilación del código fuente del proyecto y no las fases previas del ciclo de vida (como la generación de código fuente).
+
+No obstante, hay que advertir que `compiler` es, a su vez, una abreviatura del nombre completo del plugin compilador de Maven. Los plugins, al ser paquetes Maven, tienen también coordenadas. Las coordenadas de la versión más reciente del plugin `compiler` son: `org.apache.maven.plugins:maven-compiler-plugin:3.10.0`.
+
+Existe una asociación por defecto entre fases y objetivos de plugins en Maven que depende del tipo de empaquetado que usemos en nuestro proyecto (jar, war, ear, etc). Además de la asociación por defecto, siempre es posible configurar nuestro proyecto (editando el fichero pom.xml) para asociar algún objetivo a una de las fases del ciclo de vida que no esté configurada por defecto. En el ejemplo siguiente se configura el plugin `properties-maven-plugin` de Codehaus para que escriba in fichero llamado `pom.properties` en el directorio de salida conteniendo los pares clave valor definidos en las propiedades del proyecto. Podemos ver que se asocia de forma explícita el objetivo `write-project-properties` a la fase `generate-resources` del ciclo de vida por defecto de Maven.
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>es.uma.informatica.sii</groupId>
+    <artifactId>Persistencia</artifactId>
+    <version>1.0.1</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>10.13.1.1</version>
+        </dependency>
+    </dependencies>
+    <build>
+    	<plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>write-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.outputDirectory}/pom.properties</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+```
+
+Para más información sobre los plugins de Maven se puede visitar [esta página](https://maven.apache.org/plugins/index.html).
+
+### Estructura de un proyecto Maven
 
 ## Propiedades en Maven
 
