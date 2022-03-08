@@ -210,9 +210,55 @@ Para más información sobre los plugins de Maven se puede visitar [esta página
 
 ### Estructura de un proyecto Maven
 
+Maven asume una determinada estructura de directorios para el proyecto. En particular, el fichero `pom.xml` asume que se encuentra en el directorio raíz del proyecto, junto con la licencia y fichero `readme`. Todo el código fuente debe encontrarse bajo el subdirectorio `src` y todo el código objeto generado así como fichero empaquetados lo almacenará bajo el directorio `target` (este directorio es eliminado al hacer `mvn clean`).
+
+Debajo de `src` encontraremos el subdirectorio `main` para el código y recursos principales de la aplicación y el directorio `test` para el código y recursos de pruebas. Dentro de cada uno de estos directorios encontramos, a su vez, los subdirectorios `java` y `resources` que contienen el código fuente Java y los recursos (ficheros de texto, ficheros de propiedades, imágenes) que use el código fuente.
+
+Para más información sobre la estructura de un proyecto Maven se puede visitar [este enlace](https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html).
+
 ## Propiedades en Maven
+
+El fichero `pom.xml` tiene una sección donde se pueden especificar propiedades que luego pueden usarse en el resto del documento o dentro de plugins. Por ejemplo, la propiedad `maven.compiler.source` que ha aparecido en los ejemplos anteriores es usada por el `compiler` plugin para determinar la versión de Java en el código fuente. Podríamos usar el valor de dicha propiedad en otra parte del documento `pom.xml` simplemente escribiendo `${maven.compiler.source}` allá donde la necesitemos.
+
+Es posible acceder también a cualquier eemento del fichero `pom.xml` como si fuera una propiedad escribiendo `${project.x}` donde `x` es la ruta (con elementos separados por punto) al elemento que queremos usar. Por ejemplo, `${project.version}` es sustituido por la versión del artefacto que estamos definiendo.
+
+También es posible acceder a propiedades especificadas en línea de comandos con la opción `-D`. Sea el siguiente fichero `pom.xml` (incompleto).
+
+```
+<project>
+...
+<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.2</ejbVersion>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>${skip.ejb.tests}</skip>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
+```
+
+En dicho fichero se usa una propiedad llamada `skip.ejb.tests` que no está definida en la sección de propiedades del documento. Cuando dicha propiedad sea cierta, Maven se saltará la fase de prueba del proyecto (tanto unitarias como de integración). Podemos hacer cierta dicha propiedad simlemente añadiéndola a la línea de comando cuando ejecutamos Maven:
+
+```
+mvn package -Dskip.ejb.tests
+```
+
+El comando anterior creará un paquete con el proyecto pero se saltará la fase de pruebas unitarias (a la fase de pruebas de inegración no llega).
 
 ## Proyectos con múltiples módulos
 
 ## Arquetipos
 
+## Perfiles en Maven
