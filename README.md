@@ -21,11 +21,13 @@ Algunas de las ventajas de Maven para la construcción de código Java son:
 
 En esta sección explicaremos algunos conceptos básicos de Maven, necesarios para comenzar a trabajar con él.
 
-### Coordenadas
+### Coordenadas y dependencias
 
-Una de las grandes ventajas de Maven es que se pueden especificar de forma declarativa las dependencias entre distintas bibliotecas (paquetes). Antes de la existencia de este tipo de herramientas, las bibliotecas debían descargarse manualmente y colocarlas en una carpeta asociada al proyecto para incluirlas en el _classpath_ durante la construcción y la ejecución.
+Una de las grandes ventajas de Maven es que se pueden especificar de forma declarativa las dependencias entre distintas bibliotecas (paquetes). Antes de la existencia de este tipo de herramientas, las bibliotecas debían descargarse manualmente (normalmente un fichero JAR) y colocarlas en una carpeta asociada al proyecto para incluirlas en el _classpath_ durante la construcción y la ejecución. Si la biblioteca descargadda tenía otras dependencias, estas también debían descargarse, y así sucesivamente hasta resolver todas las dependencias. Con Maven basta indicar de qué biblioteca depende nuestro proyecto y la herramienta se encargará de buscar la dependencia (descargarla si es necesario) y todas sus dependencias y ubicarla en el _classpath_ para la construcción del software.
 
-### Dependencias
+
+
+
 
 ### Project Object Model (pom)
 
