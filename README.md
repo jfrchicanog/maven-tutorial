@@ -231,7 +231,7 @@ Podemos combinar la ejecución secuencia de fases y objetivos en Maven indicando
 ```
 mvn clean package
 ```
-ejecutará la fase `clean` del ciclo de vida `clean` y luego todas las fases hasta `package`del ciclo de vida por defecto. 
+ejecutará las fases `pre-clean` y `clean` del ciclo de vida `clean` y luego todas las fases hasta `package`del ciclo de vida por defecto. 
 
 Para más información sobre los plugins de Maven se puede visitar [esta página](https://maven.apache.org/plugins/index.html).
 
