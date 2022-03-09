@@ -9,7 +9,7 @@ Es una herramienta y un sistema de distribución de paquetes que facilita la con
 ## ¿Qué ventajas tiene Maven?
 
 Algunas de las ventajas de Maven para la construcción de código Java son:
-* __Identificación de paquetes__: todos los paquetes tienen unas coordenadas que permiten de forma unívoca, lo que facilita la identificación de paquetes y versiones.
+* __Identificación de paquetes__: todos los paquetes tienen unas coordenadas que permiten identificarlo de forma unívoca, lo que facilita la identificación de paquetes y versiones.
 * __Distribución de paquetes__: los repositorios de Maven permiten almacenar paquetes de forma que no sea necesario descargar de una URL los paquetes de forma manual, sino que Maven detecta las dependencias y los descarga de forma automática.
 * __Gestión de dependencias__: permite la declaración de dependencias de los proyectos y se encarga de resolver dichas dependencias descargando los paquetes necesarios.
 * __Automatización de procesos de construcción complejos__: es posible ejecutar un complejo flujo de construcción usando un simple comando.
@@ -32,7 +32,7 @@ Para poder especificar las dependencias de forma declarativa, es necesario que c
 
 La terna anterior identifica de forma unívoca un paquete concreto (un fichero JAR) que puede contener una biblioteca, una aplicación, recursos, etc. De esta forma es posible indicar claramente en un proyecto qué dependencias tenemos. Es habitual usar la notación `groupId:artifcatId:version` para identificar de forma concisa un paquete Maven.
 
-A la hora de especificar las dependencias de un proyecto es posible indicar su _ámbito_ (_scope_). Este ámbito indican cuándo será necesario añadir el código al _classpath_. El ámbito puede tomar los siguientes valores:
+A la hora de especificar las dependencias de un proyecto es posible indicar su _ámbito_ (_scope_). Este ámbito determina cuándo será necesario añadir el paquete al _classpath_ y si dicha dependencia hay que trasladarla a otros paquetes que dependan del actual. El ámbito puede tomar los siguientes valores:
 * **compile** (valor por defecto). Indica que la dependencia debe estar disponible en cualquier classpath (compilación, pruebas y ejecución) y que se debe incluir también en el classpath de los proyectos dependientes.
 * **runtime**. Indica que la dependencia debe estar disponible en tiempo de ejecución y pruebas pero no es necesaria para la compilación.  
 * **test**. Indica que la dependencia solo es necesaria durante las pruebas, por lo que se añadirá a la fase de compilación de casos de prueba y su ejecución. 
