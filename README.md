@@ -239,7 +239,7 @@ Para más información sobre los plugins de Maven se puede visitar [esta página
 
 Maven asume una determinada estructura de directorios para el proyecto. En particular, el fichero `pom.xml` asume que se encuentra en el directorio raíz del proyecto, junto con la licencia y fichero `readme`. Todo el código fuente debe encontrarse bajo el subdirectorio `src` y todo el código objeto generado así como fichero empaquetados lo almacenará bajo el directorio `target` (este directorio es eliminado al hacer `mvn clean`).
 
-Debajo de `src` encontraremos el subdirectorio `main` para el código y recursos principales de la aplicación y el directorio `test` para el código y recursos de pruebas. Dentro de cada uno de estos directorios encontramos, a su vez, los subdirectorios `java` y `resources` que contienen el código fuente Java y los recursos (ficheros de texto, ficheros de propiedades, imágenes) que use el código fuente. Cuando estamos desarrollando una aplicación Web, el subdirectorio `webapp` dentro de `src/main` se usa para contener las páginas HTML, JSP, y facelets de la aplciación, así como recursos CSS y JS de la misma.
+Debajo de `src` encontraremos el subdirectorio `main` para el código y recursos principales de la aplicación y el directorio `test` para el código y recursos de pruebas. Dentro de cada uno de estos directorios encontramos, a su vez, los subdirectorios `java` y `resources` que contienen el código fuente Java y los recursos (ficheros de texto, ficheros de propiedades, imágenes) que use el código fuente. Cuando estamos desarrollando una aplicación Web, el subdirectorio `webapp` dentro de `src/main` se usa para contener las páginas HTML, JSP, y facelets de la aplicación, así como los recursos CSS y JS de la misma.
 
 Para más información sobre la estructura de un proyecto Maven se puede visitar [este enlace](https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html).
 
@@ -255,24 +255,23 @@ También es posible acceder a propiedades especificadas en línea de comandos co
 <project>
 ...
 <build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-ejb-plugin</artifactId>
-				<configuration>
-					<ejbVersion>3.2</ejbVersion>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skip>${skip.ejb.tests}</skip>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-ejb-plugin</artifactId>
+            <configuration>
+                <ejbVersion>3.2</ejbVersion>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+                <skip>${skip.ejb.tests}</skip>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 </project>
 ```
 
