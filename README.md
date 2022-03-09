@@ -44,11 +44,11 @@ A la hora de especificar las dependencias de un proyecto es posible indicar su _
 
 Los paquetes, una vez construidos pueden publicarse en repositorios de paquetes. En todo sistema que use Maven existe un _repositorio local_, asociado al usuario que ejecuta Maven, y que normalmente se encuentra en el directorio `.m2` dentro del directorio de trabajo del usuario. Este repositorio local actúa como una caché para almacenar los paquetes descargados por Maven de otros repositorios remotos. También se puede utilizar para instalar paquetes que estamos construyendo por si los necesitan otros proyectos (usando el comando `mvn install`). 
 
-Si Maven no encuentra un paquete en el repositorio local, busca en repositorios remotos. Estos repositorios pueden configurarse en un fichero llamado `settings.xml` ubicado en el directorio `.m2`. Si no confiuramos ningún repositorio remoto, Maven usará el repositorio [Maven Central](https://search.maven.org).
+Si Maven no encuentra un paquete en el repositorio local, busca en repositorios remotos. Estos repositorios pueden configurarse en un fichero llamado `settings.xml` ubicado en el directorio `.m2`. Si no configuramos ningún repositorio remoto, Maven usará el repositorio [Maven Central](https://search.maven.org).
 
 ### Project Object Model (pom)
 
-El __project object model__ es el elemento fundamental para la especificación y configuración de la construcción de un proyecto. Se trata de un fichero llamado normalmente `pom.xml` donde se especifica (en formato XML) las dependencias del proyecto, sus coordenadas y todas las instrucciones necesarias para la construcción del software. Cuando un proyecto se construye con Maven y contiene este fichero `pom.xml` decimos que es un _proyecto Maven_.
+El _project object model_ es el elemento fundamental para la especificación y configuración de la construcción de un proyecto. Se trata de un fichero llamado normalmente `pom.xml` donde se especifica (en formato XML) las dependencias del proyecto, sus coordenadas y todas las instrucciones necesarias para la construcción del software. Cuando un proyecto se construye con Maven y contiene este fichero `pom.xml` decimos que es un _proyecto Maven_.
 
 Vamos a ver un ejemplo de fichero `pom.xml` sencillo a continuación:
 
@@ -87,7 +87,7 @@ Vamos a ver un ejemplo de fichero `pom.xml` sencillo a continuación:
 </project>
 ```
 
-Se peude ver cómo se especifican las dependencias del proyecto dentro del elemento `<dependencies>` del fichero XML. También se especifican aspectos como la versión Java usada para el código fuente y el código objeto, la codificación de caracteres que se debe asumir en el proyecto y el equipo de empaquetado que debe usarse (archivo JAR en este caso).
+Se puede ver cómo se especifican las dependencias del proyecto dentro del elemento `<dependencies>` del fichero XML. También se especifican aspectos como la versión Java usada para el código fuente y el código objeto, la codificación de caracteres que se debe asumir en el proyecto y el tipo de empaquetado que debe usarse (archivo JAR en este caso).
 
 Para ver todo lo que puede ir dentro de un fichero `pom.xml` se recomienda visitar [este enlace](https://maven.apache.org/pom.html).
 
@@ -127,13 +127,13 @@ mvn package
 se ejecutarán todas las fases anteriores hasta llegar a la fase `package`. El resultado será un paquete con el software. Este comando debe escribirse en el directorio donde se encuentra el fichero `pom.xml`del proyecto. Alternativamente, puede indicarse la ubicación del fichero `pom.xml` con la opción `-f`. Por ejemplo:
 
 ```
-mvn -f proyecto/pom.xml
+mvn -f proyecto/pom.xml package
 ```
 
 Esto también se aplica cuando el fichero POM no tiene el nombre estándar (`pom.xml`):
 
 ```
-mvn -f mi-otro-pom.xml
+mvn -f mi-otro-pom.xml package
 ```
 
 Si escribimos:
@@ -169,7 +169,7 @@ se ejecutará solo la compilación del código fuente del proyecto y no las fase
 
 No obstante, hay que advertir que `compiler` es, a su vez, una abreviatura del nombre completo del plugin compilador de Maven. Los plugins, al ser paquetes Maven, tienen también coordenadas. Las coordenadas de la versión más reciente del plugin `compiler` son: `org.apache.maven.plugins:maven-compiler-plugin:3.10.0`.
 
-Existe una asociación por defecto entre fases y objetivos de plugins en Maven que depende del tipo de empaquetado que usemos en nuestro proyecto (jar, war, ear, etc). Además de la asociación por defecto, siempre es posible configurar nuestro proyecto (editando el fichero pom.xml) para asociar algún objetivo a una de las fases del ciclo de vida que no esté configurada por defecto. En el ejemplo siguiente se configura el plugin `properties-maven-plugin` de Codehaus para que escriba in fichero llamado `pom.properties` en el directorio de salida conteniendo los pares clave valor definidos en las propiedades del proyecto. Podemos ver que se asocia de forma explícita el objetivo `write-project-properties` a la fase `generate-resources` del ciclo de vida por defecto de Maven.
+Existe una asociación por defecto entre fases y objetivos de plugins en Maven que depende del tipo de empaquetado que usemos en nuestro proyecto (jar, war, ear, etc). Esta asociación puede consultarse [aquí](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#built-in-lifecycle-bindings).Además de la asociación por defecto, siempre es posible configurar nuestro proyecto (editando el fichero `pom.xml`) para asociar algún objetivo a una de las fases del ciclo de vida que no esté configurada por defecto. En el ejemplo siguiente se configura el plugin `properties-maven-plugin` de Codehaus para que escriba in fichero llamado `pom.properties` en el directorio de salida conteniendo los pares clave valor definidos en las propiedades del proyecto. Podemos ver que se asocia de forma explícita el objetivo `write-project-properties` a la fase `generate-resources` del ciclo de vida por defecto de Maven.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
