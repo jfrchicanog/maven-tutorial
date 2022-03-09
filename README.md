@@ -123,7 +123,19 @@ No es necesario ejecutar todas estas fases cuando realizamos la construcción de
 ```
 mvn package
 ```
-se ejecutarán todas las fases anteriores hasta llegar a la fase `package`. El resultado será un paquete con el software. Si escribimos:
+se ejecutarán todas las fases anteriores hasta llegar a la fase `package`. El resultado será un paquete con el software. Este comando debe escribirse en el directorio donde se encuentra el fichero `pom.xml`del proyecto. Alternativamente, puede indicarse la ubicación del fichero `pom.xml` con la opción `-f`. Por ejemplo:
+
+```
+mvn -f proyecto/pom.xml
+```
+
+Esto también se aplica cuando el fichero POM no tiene el nombre estándar (`pom.xml`):
+
+```
+mvn -f mi-otro-pom.xml
+```
+
+Si escribimos:
 
 ```
 mvn verify
@@ -334,11 +346,10 @@ Es posible que un módulo del proyecto dependa de otro (necesita que el otro se 
 
 ## Arquetipos
 
-Los arquetipos son plantillas de proyectos Maven que permiten partir de un proyecto no vacío.
+Los arquetipos son plantillas de proyectos Maven que permiten construir un primer proyecto con una estructura inicial (incluyendo código y recursos). Son útiles para no tener que partir de una carpeta vacía. Los arquetipos también tienen coordenadas Maven y se distribuyen en repositorios. Para usar un arquetipo tenemos que usar el objetivo `archetype: generate`. Por ejemplo, para construir un pequeño proyecto Maven con una clase Java y una clase de prueba podemos usar el arquetipo `maven-archetype-simple` invocándolo de la siguiente forma:
 
+```
+mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-simple -DarchetypeVersion=1.4
+```
 
-Hace falta?
-
-## Perfiles en Maven
-
-Esto no va a hacer falta
+Para más información sobre arquetipos puede visitar [este enlace](https://maven.apache.org/guides/introduction/introduction-to-archetypes.html). Para aprender a crear sus propios arquetipos puede visitar [esta página](https://maven.apache.org/guides/mini/guide-creating-archetypes.html).
