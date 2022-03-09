@@ -38,7 +38,7 @@ A la hora de especificar las dependencias de un proyecto es posible indicar su _
 * **test**. Indica que la dependencia solo es necesaria durante las pruebas, por lo que se añadirá a la fase de compilación de casos de prueba y su ejecución. 
 * **provided**. Indica que la dependencia se espera que esté presente en el entorno de ejecución (típicamente un contenedor de un servidor de aplicaciones). Se encontrará en el classpath de compilación y pruebas.
 * **system**. Indica que la dependencia se encuentra en el sistema de ficheros y Maven no debe buscarlo en un repositorio (debe proporcionarse el JAR en este caso usando el elemento `systemPath`). Este ámbito está obsoleto y debe evitarse.
-* **import**. Usado para importar todas las dependencias de proyectos multi-módulo.
+* **import**. Usado para importar todas las dependencias de proyectos multi-módulo (hablaremos de estos proyectos más abajo).
 
 ### Repositorios
 
