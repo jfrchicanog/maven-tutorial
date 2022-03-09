@@ -32,6 +32,8 @@ Para poder especificar las dependencias de forma declarativa, es necesario que c
 
 La terna anterior identifica de forma unívoca un paquete concreto (un fichero JAR) que puede contener una biblioteca, una aplicación, recursos, etc. De esta forma es posible indicar claramente en un proyecto qué dependencias tenemos. Es habitual usar la notación `groupId:artifcatId:version` para identificar de forma concisa un paquete Maven.
 
+Es posible indicar a Maven que el artefacto está aún en desarrollo (no es definitivo) añadiendo el sufijo `-SNAPSHOT` a la versión. Maven da un tratamiento especial a estos artefactos. En particular, siempre consulta el repositorio remoto cuando debe resolver las dependencias, aunque haya una versión en el respotirio local, porque al estar en desarrollo el artefacto podría haber cambiado.
+
 A la hora de especificar las dependencias de un proyecto es posible indicar su _ámbito_ (_scope_). Este ámbito determina cuándo será necesario añadir el paquete al _classpath_ y si dicha dependencia hay que trasladarla a otros paquetes que dependan del actual. El ámbito puede tomar los siguientes valores:
 * **compile** (valor por defecto). Indica que la dependencia debe estar disponible en cualquier classpath (compilación, pruebas y ejecución) y que se debe incluir también en el classpath de los proyectos dependientes.
 * **runtime**. Indica que la dependencia debe estar disponible en tiempo de ejecución y pruebas pero no es necesaria para la compilación.  
@@ -285,14 +287,14 @@ El comando anterior creará un paquete con el proyecto pero se saltará la fase 
 
 ## Proyectos con múltiples módulos
 
-Es posible estructurar un proyecto de Maven como una jerarquía de módulos. Cada módulo es presenta en un subdirectorio diferente y tiene su propio fichero `pom.xml` y cada módulo tiene sus propias coordenadas. Podemos pensar en un proyecto multi-módulo como una colección de proyectos relacionados que pueden procesarse a la vez. El siguiente fichero define un proyecto Maven con cuatro módulos:
+Es posible estructurar un proyecto de Maven como una jerarquía de módulos. Cada módulo se presenta en un subdirectorio diferente y tiene su propio fichero `pom.xml` y cada módulo tiene sus propias coordenadas. Podemos pensar en un proyecto multi-módulo como una colección de proyectos relacionados que pueden procesarse a la vez. El siguiente fichero define un proyecto Maven con cuatro módulos:
 
 ```
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>es.uma.informatica.sii</groupId>
   <artifactId>AgendaWeb</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>pom</packaging>
   <name>AgendaWeb</name>
   <description>Código base para la práctica 6 de Sistemas de Información para Internet</description>
@@ -325,7 +327,7 @@ En el `pom.xml` del proyecto multi-módulo es posible definir propiedades y conf
   <parent>
     <groupId>es.uma.informatica.sii</groupId>
     <artifactId>AgendaWeb</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
   <artifactId>AgendaWeb-jpa</artifactId>
   <name>JPA</name>
@@ -353,10 +355,13 @@ Es posible que un módulo del proyecto dependa de otro (necesita que el otro se 
 
 ## Arquetipos
 
-Los arquetipos son plantillas de proyectos Maven que permiten construir un primer proyecto con una estructura inicial (incluyendo código y recursos). Son útiles para no tener que partir de una carpeta vacía. Los arquetipos también tienen coordenadas Maven y se distribuyen en repositorios. Para usar un arquetipo tenemos que usar el objetivo `archetype: generate`. Por ejemplo, para construir un pequeño proyecto Maven con una clase Java y una clase de prueba podemos usar el arquetipo `maven-archetype-simple` invocándolo de la siguiente forma:
+Los arquetipos son plantillas de proyectos Maven que permiten construir un primer proyecto con una estructura inicial (incluyendo código y recursos). Son útiles para no tener que partir de una carpeta vacía. Los arquetipos también tienen coordenadas Maven y se distribuyen en repositorios. Para usar un arquetipo tenemos que usar el objetivo `archetype:generate`. Por ejemplo, para construir un pequeño proyecto Maven con una clase Java y una clase de prueba podemos usar el arquetipo `maven-archetype-simple` invocándolo de la siguiente forma:
 
 ```
-mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-simple -DarchetypeVersion=1.4
+mvn archetype:generate \
+ -DarchetypeGroupId=org.apache.maven.archetypes \
+ -DarchetypeArtifactId=maven-archetype-simple \
+ -DarchetypeVersion=1.4
 ```
 
 Para más información sobre arquetipos puede visitar [este enlace](https://maven.apache.org/guides/introduction/introduction-to-archetypes.html). Para aprender a crear sus propios arquetipos puede visitar [esta página](https://maven.apache.org/guides/mini/guide-creating-archetypes.html).
