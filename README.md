@@ -239,7 +239,7 @@ Para más información sobre los plugins de Maven se puede visitar [esta página
 
 ### Estructura de un proyecto Maven
 
-Maven asume una determinada estructura de directorios para el proyecto. En particular, el fichero `pom.xml` asume que se encuentra en el directorio raíz del proyecto, junto con la licencia y fichero `readme`. Todo el código fuente debe encontrarse bajo el subdirectorio `src` y todo el código objeto generado así como fichero empaquetados lo almacenará bajo el directorio `target` (este directorio es eliminado al hacer `mvn clean`).
+Maven asume una determinada estructura de directorios para el proyecto. En particular, el fichero `pom.xml` asume que se encuentra en el directorio raíz del proyecto, junto con la licencia y fichero `readme`. Todo el código fuente debe encontrarse bajo el subdirectorio `src` y todo el código objeto generado así como ficheros empaquetados lo almacenará bajo el directorio `target` (este directorio es eliminado al hacer `mvn clean`).
 
 Debajo de `src` encontraremos el subdirectorio `main` para el código y recursos principales de la aplicación y el directorio `test` para el código y recursos de pruebas. Dentro de cada uno de estos directorios encontramos, a su vez, los subdirectorios `java` y `resources` que contienen el código fuente Java y los recursos (ficheros de texto, ficheros de propiedades, imágenes) que use el código fuente. Cuando estamos desarrollando una aplicación Web, el subdirectorio `webapp` dentro de `src/main` se usa para contener las páginas HTML, JSP, y facelets de la aplicación, así como los recursos CSS y JS de la misma.
 
@@ -249,7 +249,7 @@ Para más información sobre la estructura de un proyecto Maven se puede visitar
 
 El fichero `pom.xml` tiene una sección donde se pueden especificar propiedades que luego pueden usarse en el resto del documento o dentro de plugins. Por ejemplo, la propiedad `maven.compiler.source` que ha aparecido en los ejemplos anteriores es usada por el `compiler` plugin para determinar la versión de Java en el código fuente. Podríamos usar el valor de dicha propiedad en otra parte del documento `pom.xml` simplemente escribiendo `${maven.compiler.source}` allá donde la necesitemos.
 
-Es posible acceder también a cualquier eemento del fichero `pom.xml` como si fuera una propiedad escribiendo `${project.x}` donde `x` es la ruta (con elementos separados por punto) al elemento que queremos usar. Por ejemplo, `${project.version}` es sustituido por la versión del artefacto que estamos definiendo.
+Es posible acceder también a cualquier elemento del fichero `pom.xml` como si fuera una propiedad escribiendo `${project.x}` donde `x` es la ruta (con elementos separados por punto) al elemento que queremos usar. Por ejemplo, `${project.version}` es sustituido por la versión del artefacto que estamos definiendo.
 
 También es posible acceder a propiedades especificadas en línea de comandos con la opción `-D`. Sea el siguiente fichero `pom.xml` (incompleto).
 
