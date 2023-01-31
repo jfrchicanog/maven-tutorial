@@ -32,7 +32,7 @@ Para poder especificar las dependencias de forma declarativa, es necesario que c
 
 La terna anterior identifica de forma unívoca un paquete concreto (un fichero JAR) que puede contener una biblioteca, una aplicación, recursos, etc. De esta forma es posible indicar claramente en un proyecto qué dependencias tenemos. Es habitual usar la notación `groupId:artifcatId:version` para identificar de forma concisa un paquete Maven.
 
-Es posible indicar a Maven que el artefacto está aún en desarrollo (no es definitivo) añadiendo el sufijo `-SNAPSHOT` a la versión. Maven da un tratamiento especial a estos artefactos. En particular, siempre consulta el repositorio remoto cuando debe resolver las dependencias, aunque haya una versión en el respotirio local, porque al estar en desarrollo el artefacto podría haber cambiado.
+Es posible indicar a Maven que el artefacto está aún en desarrollo (no es definitivo) añadiendo el sufijo `-SNAPSHOT` a la versión. Maven da un tratamiento especial a estos artefactos. En particular, siempre consulta el repositorio remoto cuando debe resolver las dependencias, aunque haya una versión en el repositorio local, porque al estar en desarrollo el artefacto podría haber cambiado.
 
 A la hora de especificar las dependencias de un proyecto es posible indicar su _ámbito_ (_scope_). Este ámbito determina cuándo será necesario añadir el paquete al _classpath_ y si dicha dependencia hay que trasladarla a otros paquetes que dependan del actual. El ámbito puede tomar los siguientes valores:
 * **compile** (valor por defecto). Indica que la dependencia debe estar disponible en cualquier classpath (compilación, pruebas y ejecución) y que se debe incluir también en el classpath de los proyectos dependientes.
