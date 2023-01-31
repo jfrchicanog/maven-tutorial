@@ -169,7 +169,7 @@ mvn compiler:compile
 ```
 se ejecutará solo la compilación del código fuente del proyecto y no las fases previas del ciclo de vida (como la generación de código fuente).
 
-No obstante, hay que advertir que `compiler` es, a su vez, una abreviatura del nombre completo del plugin compilador de Maven. Los plugins, al ser paquetes Maven, tienen también coordenadas. Las coordenadas de la versión más reciente del plugin `compiler` son: `org.apache.maven.plugins:maven-compiler-plugin:3.10.0`.
+No obstante, hay que advertir que `compiler` es, a su vez, una abreviatura del nombre completo del plugin compilador de Maven. Los plugins, al ser paquetes Maven, tienen también coordenadas. Las coordenadas de la versión más reciente del plugin `compiler` son: `org.apache.maven.plugins:maven-compiler-plugin:3.10.1`.
 
 Existe una asociación por defecto entre fases y objetivos de plugins en Maven que depende del tipo de empaquetado que usemos en nuestro proyecto (jar, war, ear, etc). Esta asociación puede consultarse [aquí](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#built-in-lifecycle-bindings). Además de la asociación por defecto, siempre es posible configurar nuestro proyecto (editando el fichero `pom.xml`) para asociar algún objetivo a una de las fases del ciclo de vida que no esté configurada por defecto. En el ejemplo siguiente se configura el plugin `properties-maven-plugin` de Codehaus para que cree un fichero llamado `pom.properties` en el directorio de salida conteniendo los pares clave/valor definidos en las propiedades del proyecto. Podemos ver que se asocia de forma explícita el objetivo `write-project-properties` a la fase `generate-resources` del ciclo de vida por defecto de Maven.
 
