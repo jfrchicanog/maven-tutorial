@@ -228,7 +228,7 @@ Existe una asociación por defecto entre fases y objetivos de plugins en Maven q
 </project>
 ```
 
-Podemos combinar la ejecución secuencia de fases y objetivos en Maven indicando dichas fases y objetivos como argumentos del comando `mvn`. Por ejemplo:
+Podemos combinar la ejecución de fases y objetivos en Maven indicando dichas fases y objetivos como argumentos del comando `mvn`. Por ejemplo:
 
 ```
 mvn clean package
