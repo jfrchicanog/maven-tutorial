@@ -108,7 +108,7 @@ Maven organiza la construcción de los paquetes en fases, cada una de las cuales
 9. generate-test-sources
 10. process-test-sources
 11. generate-test-resources
-12. process-tes-resources
+12. process-test-resources
 13. test-compile
 14. process-test-classes
 15. test
