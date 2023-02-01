@@ -1,6 +1,6 @@
 # Tutorial de Apache Maven
 
-En este documento se presenta un breve tutorial pensado para introducir Maven en la asignatura de Sistemas de Información para Internet, de tercero del Grado en Ingeniería Informática y cuarto del Doble Grado en Ingeniería Informática y Matemáticas de la Universidad de Málaga (España). Para obtener más información sobre Maven y recursos adicionales se puede consultar la [página oficial de Apache Maven](https://maven.apache.org/index.html). Para hacer los ejemplos que se muestran abajo se recomienda descargar un ejemplo simple (que se construya rápido). Un ejemplo de proyecto puede ser [este](https://github.com/jfrchicanog/jpa-demo).
+En este documento se presenta un breve tutorial pensado para introducir Maven en la asignatura de Sistemas de Información para Internet, de tercero del Grado en Ingeniería Informática y cuarto del Doble Grado en Ingeniería Informática y Matemáticas de la Universidad de Málaga (España). Para obtener más información sobre Maven y recursos adicionales se puede consultar la [página oficial de Apache Maven](https://maven.apache.org/index.html). Para hacer los ejemplos que se muestran abajo se recomienda descargar un ejemplo simple (que se construya rápido). Un ejemplo de proyecto puede ser [este](https://github.com/jfrchicanog/jpa-demo). Otro proyecto con múltples módulos es [este](https://github.com/jfrchicanog/AgendaWeb).
 
 ## ¿Qué es Maven?
 
