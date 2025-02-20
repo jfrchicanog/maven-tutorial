@@ -283,7 +283,7 @@ En dicho fichero se usa una propiedad llamada `skip.ejb.tests` que no está defi
 mvn package -Dskip.ejb.tests
 ```
 
-El comando anterior creará un paquete con el proyecto pero se saltará la fase de pruebas unitarias (a la fase de pruebas de inegración no llega).
+El comando anterior creará un paquete con el proyecto pero se saltará la fase de pruebas unitarias (a la fase de pruebas de integración no llega).
 
 ## Proyectos con múltiples módulos
 
