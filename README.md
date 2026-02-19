@@ -1,6 +1,6 @@
 # Tutorial de Apache Maven
 
-En este documento se presenta un breve tutorial pensado para introducir Maven en la asignatura de Sistemas de Información para Internet, de tercero del Grado en Ingeniería Informática y cuarto del Doble Grado en Ingeniería Informática y Matemáticas de la Universidad de Málaga (España). Para obtener más información sobre Maven y recursos adicionales se puede consultar la [página oficial de Apache Maven](https://maven.apache.org/index.html). Para hacer los ejemplos que se muestran abajo se recomienda descargar un ejemplo simple (que se construya rápido). Un ejemplo de proyecto puede ser [este](https://github.com/jfrchicanog/jpa-demo). Otro proyecto con múltples módulos es [este](https://github.com/jfrchicanog/AgendaWeb).
+En este documento se presenta un breve tutorial pensado para introducir Maven en la asignatura de Desarrollo de Aplicaciones Web, de tercero del Grado en Ingeniería Informática y cuarto del Doble Grado en Ingeniería Informática y Matemáticas de la Universidad de Málaga (España). Para obtener más información sobre Maven y recursos adicionales se puede consultar la [página oficial de Apache Maven](https://maven.apache.org/index.html). Para hacer los ejemplos que se muestran abajo se recomienda descargar un ejemplo simple (que se construya rápido). Un ejemplo de proyecto puede ser [este](https://github.com/jfrchicanog/jpa-demo). Otro proyecto con múltples módulos es [este](https://github.com/jfrchicanog/AgendaWeb).
 
 ## ¿Qué es Maven?
 
@@ -23,12 +23,12 @@ En esta sección explicaremos algunos conceptos básicos de Maven, necesarios pa
 
 ### Coordenadas y dependencias
 
-Una de las grandes ventajas de Maven es que se pueden especificar de forma declarativa las dependencias entre distintas bibliotecas (paquetes). Antes de la existencia de este tipo de herramientas, las bibliotecas debían descargarse manualmente (normalmente un fichero JAR) y colocarlas en una carpeta asociada al proyecto para incluirlas en el _classpath_ durante la construcción y la ejecución. Si la biblioteca descargadda tenía otras dependencias, estas también debían descargarse, y así sucesivamente hasta resolver todas las dependencias. Con Maven basta indicar de qué biblioteca depende nuestro proyecto y la herramienta se encargará de buscar la dependencia (descargarla si es necesario) y todas sus dependencias y ubicarla en el _classpath_ para la construcción del software.
+Una de las grandes ventajas de Maven es que se pueden especificar de forma declarativa las dependencias entre distintas bibliotecas (paquetes). Antes de la existencia de este tipo de herramientas, las bibliotecas debían descargarse manualmente (normalmente un fichero JAR) y colocarlas en una carpeta asociada al proyecto para incluirlas en el _classpath_ durante la construcción y la ejecución. Si la biblioteca descargada tenía otras dependencias, estas también debían descargarse, y así sucesivamente hasta resolver todas las dependencias. Con Maven basta indicar de qué biblioteca depende nuestro proyecto y la herramienta se encargará de buscar la dependencia (descargarla si es necesario), así como todas sus dependencias, y ubicarla en el _classpath_ para la construcción del software.
 
 Para poder especificar las dependencias de forma declarativa, es necesario que cada paquete en Maven esté identificado. Para eso se usan las _coordenadas Maven_:
 * __groupId__: es un identificador que normalmente identifica la organización o el grupo de desarrollo.
 * __artifactId__: identifica el paquete dentro del grupo de desarrollo (su nombre).
-* __version__: es la versión del artefacto. Se recomienda seguir el estándar de [Versionado semático 1.0.0](https://semver.org/spec/v1.0.0.html).
+* __version__: es la versión del artefacto. Se recomienda seguir el estándar de [Versionado semántico 1.0.0](https://semver.org/spec/v1.0.0.html).
 
 La terna anterior identifica de forma unívoca un paquete concreto (un fichero JAR) que puede contener una biblioteca, una aplicación, recursos, etc. De esta forma es posible indicar claramente en un proyecto qué dependencias tenemos. Es habitual usar la notación `groupId:artifcatId:version` para identificar de forma concisa un paquete Maven.
 
@@ -60,7 +60,7 @@ Vamos a ver un ejemplo de fichero `pom.xml` sencillo a continuación:
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>es.uma.informatica.sii</groupId>
+    <groupId>es.uma.informatica.daw</groupId>
     <artifactId>Persistencia</artifactId>
     <version>1.0.1</version>
     <packaging>jar</packaging>
@@ -145,7 +145,7 @@ mvn verify
 ```
 se ejecutarán todas las fases hasta `verify` (que comprueba que las pruebas de integración han pasado).
 
-La secuencia anterior de fases forma el denominado _ciclo de vida por defecto_ de Maven. Pero Maven define otros dos _ciclos de vida_, con una secuencia de fases diferente. Por un lado, tenemos el ciclo de vida _clean_, que se centra en la eliminación de los artfectos generados en el directorio de trabajo del proyecto (no en los repositorios), con fases:
+La secuencia anterior de fases forma el denominado _ciclo de vida por defecto_ de Maven. Pero Maven define otros dos _ciclos de vida_, con una secuencia de fases diferente. Por un lado, tenemos el ciclo de vida _clean_, que se centra en la eliminación de los artefactos generados en el directorio de trabajo del proyecto (no en los repositorios), con fases:
 
 1. pre-clean
 2. clean
@@ -169,7 +169,7 @@ mvn compiler:compile
 ```
 se ejecutará solo la compilación del código fuente del proyecto y no las fases previas del ciclo de vida (como la generación de código fuente).
 
-No obstante, hay que advertir que `compiler` es, a su vez, una abreviatura del nombre completo del plugin compilador de Maven. Los plugins, al ser paquetes Maven, tienen también coordenadas. Las coordenadas de la versión más reciente del plugin `compiler` son: `org.apache.maven.plugins:maven-compiler-plugin:3.10.1`.
+No obstante, hay que advertir que `compiler` es, a su vez, una abreviatura del nombre completo del plugin compilador de Maven. Los plugins, al ser paquetes Maven, tienen también coordenadas. Las coordenadas de la versión más reciente del plugin `compiler` son: `org.apache.maven.plugins:maven-compiler-plugin:3.15.0` (publicada el 27 de enero de 2026).
 
 Existe una asociación por defecto entre fases y objetivos de plugins en Maven que depende del tipo de empaquetado que usemos en nuestro proyecto (jar, war, ear, etc). Esta asociación puede consultarse [aquí](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#built-in-lifecycle-bindings). Además de la asociación por defecto, siempre es posible configurar nuestro proyecto (editando el fichero `pom.xml`) para asociar algún objetivo a una de las fases del ciclo de vida que no esté configurada por defecto. En el ejemplo siguiente se configura el plugin `properties-maven-plugin` de Codehaus para que cree un fichero llamado `pom.properties` en el directorio de salida conteniendo los pares clave/valor definidos en las propiedades del proyecto. Podemos ver que se asocia de forma explícita el objetivo `write-project-properties` a la fase `generate-resources` del ciclo de vida por defecto de Maven.
 
@@ -179,7 +179,7 @@ Existe una asociación por defecto entre fases y objetivos de plugins en Maven q
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>es.uma.informatica.sii</groupId>
+    <groupId>es.uma.informatica.daw</groupId>
     <artifactId>Persistencia</artifactId>
     <version>1.0.1</version>
     <packaging>jar</packaging>
@@ -292,7 +292,7 @@ Es posible estructurar un proyecto de Maven como una jerarquía de módulos. Cad
 ```
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>es.uma.informatica.sii</groupId>
+  <groupId>es.uma.informatica.daw</groupId>
   <artifactId>AgendaWeb</artifactId>
   <version>1.0</version>
   <packaging>pom</packaging>
@@ -325,7 +325,7 @@ En el `pom.xml` del proyecto multi-módulo es posible definir propiedades y conf
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>es.uma.informatica.sii</groupId>
+    <groupId>es.uma.informatica.daw</groupId>
     <artifactId>AgendaWeb</artifactId>
     <version>1.0</version>
   </parent>
