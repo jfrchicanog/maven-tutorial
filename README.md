@@ -277,7 +277,7 @@ También es posible acceder a propiedades especificadas en línea de comandos co
 </project>
 ```
 
-En dicho fichero se usa una propiedad llamada `skip.ejb.tests` que no está definida en la sección de propiedades del documento. Cuando dicha propiedad sea cierta, Maven se saltará la fase de prueba del proyecto (tanto unitarias como de integración). Podemos hacer cierta dicha propiedad simlemente añadiéndola a la línea de comando cuando ejecutamos Maven:
+En dicho fichero se usa una propiedad llamada `skip.ejb.tests` que no está definida en la sección de propiedades del documento. Cuando dicha propiedad sea cierta, Maven se saltará la fase de prueba del proyecto (tanto unitarias como de integración). Podemos hacer cierta dicha propiedad simplemente añadiéndola a la línea de comando cuando ejecutamos Maven:
 
 ```
 mvn package -Dskip.ejb.tests
